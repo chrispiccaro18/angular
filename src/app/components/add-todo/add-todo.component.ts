@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-todo',
@@ -16,12 +17,14 @@ export class AddTodoComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit() {
+  onSubmit(form:NgForm) {
     const todo = {
       title: this.title,
       completed: false
     }
 
     this.addTodo.emit(todo);
+
+    form.reset();
   }
 }
