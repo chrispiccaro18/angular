@@ -14,8 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class TodoService {
-  todosUrl:string = 'https://jsonplaceholder.typicode.com/todos';
-  todosLimit:string = '?_limit=5'
+  todosUrl:string = 'http://localhost:8080/api/v1/todos';
 
   constructor(
     private http:HttpClient
@@ -23,12 +22,12 @@ export class TodoService {
 
   // Get Todos
   getTodos():Observable<Todo[]> {
-    return this.http.get<Todo[]>(`${this.todosUrl}${this.todosLimit}`);
+    return this.http.get<Todo[]>(`${this.todosUrl}`);
   }
 
   // Delete Todo
   deleteTodo(todo:Todo):Observable<Todo> {
-    const url = `${this.todosUrl}/${todo.id}`;
+    const url = `${this.todosUrl}/${todo._id}`;
     return this.http.delete<Todo>(url, httpOptions);
   }
 
@@ -39,7 +38,7 @@ export class TodoService {
 
   // Toggle Completed
   toggleCompleted(todo: Todo):Observable<any> {
-    const url = `${this.todosUrl}/${todo.id}`;
+    const url = `${this.todosUrl}/${todo._id}`;
     return this.http.put(url, todo, httpOptions);
   }
 }
